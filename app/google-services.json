@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "133702002000",
+    "firebase_url": "https://mobile-programming-21921-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "mobile-programming-21921",
+    "storage_bucket": "mobile-programming-21921.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133702002000:android:fc1addbc268022f941f855",
+        "android_client_info": {
+          "package_name": "com.example.mobileprogramming"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCu6Yap9y1GIAOkP1Ead_bQi0BjUEpYbGc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MobileProgramming</string>
+    <string name="splashlayout">splashlayout</string>
+    <string name="loginlayout">loginlayout</string>
+    <string name="navigation_drawer_open">Aç</string>
+    <string name="navigation_drawer_close">Kapat</string>
+</resources>
