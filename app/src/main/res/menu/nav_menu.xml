@@ -9,7 +9,7 @@
             android:title="Add photo" />
         <item
             android:id="@+id/nav_item3"
-            android:title="Galeri " />
+            android:title="Gallery " />
         <item
             android:id="@+id/nav_item4"
             android:title="About " />

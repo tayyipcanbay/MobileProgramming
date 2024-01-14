@@ -23,7 +23,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.firestore.DocumentReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashSet;
@@ -56,69 +55,52 @@ public class GalleryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_galeri);
-
-        // Giriş yapan kullanıcı bilgisi
+        setContentView(R.layout.activity_gallery);
+        //Logged in user info
         Intent intent = getIntent();
         if (intent != null) {
             loggedUserEmail = intent.getStringExtra("userEmail");
-            // userEmail'i kullanarak gerekli işlemleri gerçekleştirin
         } else {
-            // Intent null ise, bir hata oluşmuş olabilir
             Log.e("IntentError", "Intent is null");
         }
         drawer = findViewById(R.id.drawer_layout1);
         navigationView = findViewById(R.id.nav_view1);
         btnOpenDrawer = findViewById(R.id.btnOpenDrawer1);
-        addPhoto = findViewById(R.id.addPhotoLayout);  // Bu satırı ekleyin ve layout dosyanızdaki uygun id'yi kullanın
-        addLabel = findViewById(R.id.addLabelLayout);  // Bu satırı ekleyin ve layout dosyanızdaki uygun id'yi kullanın
-        // NavUtil sınıfını başlat
+        addPhoto = findViewById(R.id.addPhotoLayout);
+        addLabel = findViewById(R.id.addLabelLayout);
+        // NavUtil initialize
         NavUtil.init(this, addPhoto, addLabel);
 
-        // ActionBarDrawerToggle ile Navigation Drawer'ı entegre etme
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        // Integrates the toolbar as the ActionBar of this Activity.
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        // NavigationView üzerindeki öğelerin tıklanma olayını dinleme
+        // Set event listeners
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
-                // Tıklanan öğenin ID'sini kontrol etme ve işlemleri gerçekleştirme
                 NavUtil.handleNavigationItemSelected(menuItem, loggedUserEmail);
-
-                // Tıklanan öğe seçili hale getirilmiş olarak işaretlensin
                 menuItem.setChecked(true);
-
-                // Drawer'ı kapatma
                 drawer.closeDrawers();
                 return true;
             }
         });
-
-        // Butona tıklama olayını ekleyin
         btnOpenDrawer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Drawer'ı açma işlemini gerçekleştirin
                 if (!drawer.isDrawerOpen(navigationView)) {
                     drawer.openDrawer(navigationView);
                 }
             }
         });
-
-        // Kullanıcının galeri görüntüleme metodunu çağırın
         displayLabels();
         SpinnerView();
 
-        // Firebase Storage referansı oluştur
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
-
     }
 
-    // Kullanıcının galeri görüntüleme metodunu tanımla
     private void displayLabels() {
         galleryLayout = findViewById(R.id.galeriShow);
 
@@ -157,14 +139,7 @@ public class GalleryActivity extends AppCompatActivity {
                                 continue;
                             }
 
-                            Button likeButton = new Button(this);
-                            Button dislikeButton = new Button(this);
-
-                            setGalleryView(user, photoName, likeButton, dislikeButton);
-
-                            // Burada onClickListener içinde tanımlanan değerleri kullanıyoruz
-                            setLike(like, likeButton, id);
-                            setDislike(dislike, dislikeButton, id);
+                            setGalleryView(user, photoName);
                         }
 
                     } else {
@@ -180,7 +155,7 @@ public class GalleryActivity extends AppCompatActivity {
         displayLabels();
     }
 
-    private void setGalleryView(String user, String photoName, Button likeButton, Button dislikeButton){
+    private void setGalleryView(String user, String photoName){
         ConstraintLayout myGalleryLayout = new ConstraintLayout(this);
 
         TextView textViewUser = new TextView(this);
@@ -192,16 +167,9 @@ public class GalleryActivity extends AppCompatActivity {
         textView.setText("Labels: \n" + labelsList);
         labelsList.clear();
 
-        likeButton.setId(View.generateViewId());
-        likeButton.setText("Like = " + likeStr);
-
-        dislikeButton.setId(View.generateViewId());
-        dislikeButton.setText("Dislike " + dislikeStr);
-
         ImageView imageView = new ImageView(this);
         imageView.setId(View.generateViewId());
         String photoUrl = "https://firebasestorage.googleapis.com/v0/b/mobile-programming-21921.appspot.com/o/"+photoName +".jpg?alt=media";
-        Log.d("PhotoUrl", photoUrl);
         Picasso.get().load(photoUrl).into(imageView);
         int width = 500;
         int height = 500;
@@ -212,8 +180,6 @@ public class GalleryActivity extends AppCompatActivity {
         myGalleryLayout.addView(imageView);
         myGalleryLayout.addView(textViewUser);
         myGalleryLayout.addView(textView);
-        myGalleryLayout.addView(likeButton);
-        myGalleryLayout.addView(dislikeButton);
 
         galleryLayout.addView(myGalleryLayout);
 
@@ -230,12 +196,6 @@ public class GalleryActivity extends AppCompatActivity {
         constraintSet.connect(textView.getId(), ConstraintSet.TOP, textViewUser.getId(), ConstraintSet.BOTTOM);
         constraintSet.connect(textView.getId(), ConstraintSet.START, imageView.getId(), ConstraintSet.END);
 
-        constraintSet.connect(likeButton.getId(), ConstraintSet.TOP, imageView.getId(), ConstraintSet.BOTTOM);
-        constraintSet.connect(likeButton.getId(), ConstraintSet.START, myGalleryLayout.getId(), ConstraintSet.START);
-
-        constraintSet.connect(dislikeButton.getId(), ConstraintSet.TOP, imageView.getId(), ConstraintSet.BOTTOM);
-        constraintSet.connect(dislikeButton.getId(), ConstraintSet.START, likeButton.getId(), ConstraintSet.END);
-
         constraintSet.applyTo(myGalleryLayout);
 
         Space space = new Space(this);
@@ -244,38 +204,14 @@ public class GalleryActivity extends AppCompatActivity {
                 20));
         galleryLayout.addView(space);
     }
-
-    private void setLike(int like, Button likeButton, String id){
-        int totalLike = like;
-        likeButton.setOnClickListener(v -> {
-            Log.d("ButtonClick", "Like button clicked"+ totalLike + 1) ;
-            DocumentReference documentRef = db.collection("gallery").document(id);
-            documentRef.update("like", String.valueOf(totalLike + 1))
-                    .addOnSuccessListener(aVoid -> Log.d("Firestore", "DocumentSnapshot successfully updated!"))
-                    .addOnFailureListener(e -> Log.e("Firestore", "Error updating document", e));
-            refreshUI();
-        });
-    }
-
-    private void setDislike(int dislike, Button dislikeButton, String id){
-        int totalDislike = dislike;
-        dislikeButton.setOnClickListener(v -> {
-            DocumentReference documentRef = db.collection("gallery").document(id);
-            documentRef.update("dislike", String.valueOf(totalDislike - 1))
-                    .addOnSuccessListener(aVoid -> Log.d("Firestore", "DocumentSnapshot successfully updated!"))
-                    .addOnFailureListener(e -> Log.e("Firestore", "Error updating document", e));
-            refreshUI();
-        });
-    }
-
-    // spinner görüntüleme metodunu tanımla
+    //
     private void SpinnerView() {
-        // Firestore'da "galeri" koleksiyonunu sorgula; hiçbir filtreleme olmadan tüm belgeleri getir
         db.collection("gallery")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Set<String> uniqueLabelsSet = new HashSet<>(); // Benzersiz etiketleri saklamak için bir set oluşturun
+                        // Create a Set to store unique labels
+                        Set<String> uniqueLabelsSet = new HashSet<>();
                         uniqueLabelsSet.add("all");
                         // Sonuç belgeleri üzerinde döngü
                         for (QueryDocumentSnapshot document : task.getResult()) {
@@ -333,9 +269,8 @@ public class GalleryActivity extends AppCompatActivity {
                                                 // Sonuç belgeleri üzerinde döngü
                                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                                     // Firestore belgesinden veriyi al
-
                                                     String user = document.getString("name");
-                                                    String photoname = document.getString("photo");
+                                                    String photoName = document.getString("photo");
 
                                                     // 'label' alanını almadan önce tür kontrolü yapın
                                                     Object labelObject = document.get("label");
@@ -374,28 +309,13 @@ public class GalleryActivity extends AppCompatActivity {
                                                     textView.setText("Labels: \n" + labelsList);
                                                     labelsList.clear();
 
-                                                    // İçeriği beğenmek için bir Button oluştur
-                                                    Button likeButton = new Button(GalleryActivity.this);
-                                                    likeButton.setId(View.generateViewId());
-                                                    likeButton.setText("Like");
-                                                    likeButton.setOnClickListener(v -> {
-                                                        // Beğenme işlemi için gerekli kodu buraya ekleyin
-                                                    });
-
-                                                    // İçeriği beğenmemek için bir Button oluştur
-                                                    Button dislikeButton = new Button(GalleryActivity.this);
-                                                    dislikeButton.setId(View.generateViewId());
-                                                    dislikeButton.setText("Dislike");
-                                                    dislikeButton.setOnClickListener(v -> {
-                                                        // Beğenmeme işlemi için gerekli kodu buraya ekleyin
-                                                    });
                                                     // ImageView tanımlayın
                                                     ImageView imageView = new ImageView(GalleryActivity.this);
                                                     // ImageView oluştur ve içeriğini belge verilerine göre ayarla
                                                     imageView.setId(View.generateViewId());
                                                     // Picasso veya Glide gibi kütüphaneleri kullanarak fotoğrafı ImageView'e yükleyin
                                                     // Göstermek istediğiniz fotoğrafın URL'sini belirtin
-                                                    String photoUrl = "https://firebasestorage.googleapis.com/v0/b/mobilfinal-86d60.appspot.com/o/"+photoname +".jpg?alt=media";
+                                                    String photoUrl = "https://firebasestorage.googleapis.com/v0/b/mobilfinal-86d60.appspot.com/o/"+photoName +".jpg?alt=media";
                                                     Picasso.get().load(photoUrl).into(imageView);
                                                     // ImageView'ın genişliğini ve yüksekliğini ayarla
                                                     int width = /* istediğiniz genişlik */500;
@@ -405,13 +325,10 @@ public class GalleryActivity extends AppCompatActivity {
                                                     LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width, height);
                                                     imageView.setLayoutParams(layoutParams);
 
-
                                                     // TextView, ImageView ve Button'u ConstraintLayout içine ekle
                                                     myGalleryLayout.addView(imageView);
                                                     myGalleryLayout.addView(textViewUser);
                                                     myGalleryLayout.addView(textView);
-                                                    myGalleryLayout.addView(likeButton);
-                                                    myGalleryLayout.addView(dislikeButton);
 
                                                     // ConstraintLayout'u ana LinearLayout içine ekle
                                                     galleryLayout.addView(myGalleryLayout);
@@ -433,14 +350,6 @@ public class GalleryActivity extends AppCompatActivity {
                                                     constraintSet.connect(textView.getId(), ConstraintSet.TOP, textViewUser.getId(), ConstraintSet.BOTTOM);
                                                     constraintSet.connect(textView.getId(), ConstraintSet.START, imageView.getId(), ConstraintSet.END);
 
-                                                    // likeButton için Constraint'ları tanımla
-                                                    constraintSet.connect(likeButton.getId(), ConstraintSet.TOP, imageView.getId(), ConstraintSet.BOTTOM);
-                                                    constraintSet.connect(likeButton.getId(), ConstraintSet.START, myGalleryLayout.getId(), ConstraintSet.START);
-
-                                                    // notLikeButton için Constraint'ları tanımla
-                                                    constraintSet.connect(dislikeButton.getId(), ConstraintSet.TOP, imageView.getId(), ConstraintSet.BOTTOM);
-                                                    constraintSet.connect(dislikeButton.getId(), ConstraintSet.START, likeButton.getId(), ConstraintSet.END);
-
                                                     // Farklı özellikleri düzenlemek için ConstraintSet'i kullanabilirsiniz
                                                     constraintSet.applyTo(myGalleryLayout);
                                                     // Yeni bir GaleriLayout eklenmeden önce boşluk ekleyin
@@ -450,7 +359,6 @@ public class GalleryActivity extends AppCompatActivity {
                                                             20));
                                                     galleryLayout.addView(space);
                                                 }
-
                                             } else {
                                                 Log.e("Firestore", "Query Failed ", task.getException());
                                             }

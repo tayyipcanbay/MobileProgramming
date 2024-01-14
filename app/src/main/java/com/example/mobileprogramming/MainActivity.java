@@ -135,17 +135,14 @@ public class MainActivity extends AppCompatActivity {
         } else {
             // Assuming 'db' is your Firestore database reference
             DocumentReference userDocumentRef = db.collection("users").document(newUser.getEmail());
-
             userDocumentRef.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         // User already exists, warn the user
-                        Log.d("Firestore", "User already exists. Showing warning.");
                         Toast.makeText(this, "This user already exists.", Toast.LENGTH_SHORT).show();
                     } else {
                         // This is a new user, perform the insert operation
-                        Log.d("Firestore", "User does not exist. Performing insert.");
                         db.collection("users")
                                 .document(newUser.getEmail())
                                 .set(newUser)
@@ -170,7 +167,6 @@ class User {
     private String username;
     private String email;
     private String password;
-
     //Methods
     public String getName() {
         return name;

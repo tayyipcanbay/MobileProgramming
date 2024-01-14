@@ -25,8 +25,8 @@
         android:layout_marginStart="41dp"
         android:layout_marginTop="48dp"
         android:ems="10"
-        android:inputType="text"
         android:hint="Name"
+        android:inputType="text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -37,8 +37,8 @@
         android:layout_marginStart="13dp"
         android:layout_marginTop="48dp"
         android:ems="10"
-        android:inputType="text"
         android:hint="Surname"
+        android:inputType="text"
         app:layout_constraintStart_toEndOf="@+id/signUpName"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -62,8 +62,8 @@
         android:layout_height="47dp"
         android:layout_marginTop="15dp"
         android:ems="10"
-        android:inputType="textPassword"
         android:hint="password"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,9 +75,10 @@
         android:layout_height="40dp"
         android:layout_marginTop="25dp"
         android:text="Sign Up"
+        android:background="#000000"
         app:layout_constraintTop_toBottomOf="@+id/signUpPassword"
-        tools:layout_editor_absoluteX="41dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="41dp" />
 
     <TextView
         android:id="@+id/textView6"
@@ -97,6 +98,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="Login"
+        android:background="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -133,8 +135,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60dp"
-                android:hint="Email"
                 android:ems="10"
+                android:hint="Email"
                 android:inputType="textEmailAddress"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -159,10 +161,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:text="Login"
+                android:background="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/loginPassword" />
+
 
             <TextView
                 android:id="@+id/textView4"
@@ -182,6 +186,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:text="Sign Up"
+                android:background="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"

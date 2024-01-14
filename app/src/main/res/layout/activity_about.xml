@@ -12,89 +12,77 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="visible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="80dp"
+            android:layout_marginBottom="40dp"
+            android:background="#000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="-30dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginBottom="40dp"
-                android:background="#6750A3"
+            <Button
+                android:id="@+id/homeBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="Home"
                 app:layout_constraintBottom_toBottomOf="parent"
-                tools:layout_editor_absoluteX="-30dp">
-
-                <Button
-                    android:id="@+id/homeBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:text="Home"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.5" />
-
-                <Button
-                    android:id="@+id/aboutBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:text="About"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/homeBtn"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.5" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="#673AB7"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <Button
-                    android:id="@+id/btnOpenDrawer"
-                    android:layout_width="91dp"
-                    android:layout_height="42dp"
-                    android:layout_gravity="end"
-                    android:layout_margin="16dp"
-                    android:background="#00673AB7"
-                    android:text="="
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:layout_editor_absoluteX="-23dp"
-                    tools:ignore="MissingConstraints" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="241dp"
-                android:layout_height="176dp"
-                android:layout_marginTop="80dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-                app:srcCompat="@drawable/logo" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/pdf"
-                android:layout_width="356dp"
-                android:layout_height="288dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView3">
+            <Button
+                android:id="@+id/aboutBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="About"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/homeBtn"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#000000"
+            app:layout_constraintTop_toTopOf="parent">
 
+            <Button
+                android:id="@+id/btnOpenDrawer"
+                android:layout_width="91dp"
+                android:layout_height="42dp"
+                android:layout_gravity="end"
+                android:layout_margin="16dp"
+                android:background="#00673AB7"
+                android:text="="
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="-23dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cv"
+            android:layout_width="349dp"
+            android:layout_height="570dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.49"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+            <WebView
+                android:id="@+id/webView"
+                android:layout_width="347dp"
+                android:layout_height="568dp"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="-1dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <FrameLayout
@@ -124,17 +112,20 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        tools:layout_editor_absoluteY="100dp"
-                        tools:ignore="MissingConstraints" />
+                        tools:ignore="MissingConstraints"
+                        tools:layout_editor_absoluteY="100dp" />
 
                     <EditText
                         android:id="@+id/labelName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="40dp"
-                        android:layout_marginTop="40dp"
+                        android:layout_marginStart="100dp"
+                        android:layout_marginTop="32dp"
                         android:ems="10"
+                        android:hint="Title"
                         android:inputType="text"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
@@ -144,6 +135,7 @@
                         android:layout_height="107dp"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="15dp"
+                        android:hint="Description"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/labelName" />
 
@@ -229,7 +221,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="camera"
+                        android:text="Camera"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"

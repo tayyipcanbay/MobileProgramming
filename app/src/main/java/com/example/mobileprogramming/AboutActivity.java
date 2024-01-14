@@ -6,6 +6,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.drawerlayout.widget.DrawerLayout;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -87,7 +89,11 @@ public class AboutActivity extends AppCompatActivity {
         addPhoto = findViewById(R.id.addPhotoLayout);
         addLabel = findViewById(R.id.addLabelLayout);
         imageView = findViewById(R.id.imageView4);
-        ConstraintLayout pdf =findViewById(R.id.pdf);
+        ConstraintLayout cv =findViewById(R.id.cv);
+
+        WebView webView = findViewById(R.id.webView);
+        webView.setWebViewClient(new WebViewClient());
+        webView.loadUrl("https://tayyipcanbay.dev");
         // Add click listeners to the buttons
         Button camera = findViewById(R.id.camera);
         camera.setOnClickListener(new View.OnClickListener() {
